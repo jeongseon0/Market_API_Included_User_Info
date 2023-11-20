@@ -12,7 +12,8 @@ connect();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use('/api', [User]);
+app.use('/api', Product);
+app.use('/auth', User);
 
 app.get('/', (req, res) => {
     res.send("Hello, World!");
