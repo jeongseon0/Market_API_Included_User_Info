@@ -1,31 +1,55 @@
-const mongoose = require("mongoose");
-
-const schema = new mongoose.Schema(
-  {
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Products extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Products.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     title: {
-      type: String,
-      required: true,
+      allowNull: false,
+      type: DataTypes.STRING,
     },
     content: {
-      type: String,
-      required: true,
+      allowNull: false,
+      type: DataTypes.STRING,
     },
-    author: {
-      type: String,
-      required: true,
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
     },
     status: {
-      type: String,
-      enum: ["FOR_SALE", "SOLD_OUT"],
-      default: "FOR_SALE",
+        allowNull: false,
+        type: DataTypes.ENUM('FOR_SALE', 'SOLD_OUT'),
+      defaultValue: 'FOR_SALE'
     },
-    password: {
-      type: String,
-      required: true,
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-  },
-  { timestamps: true },
-);
-
-const Product = mongoose.model("Product", schema);
-module.exports = Product;
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    }
+  }, {
+    sequelize,
+    modelName: 'Products',
+  });
+  return Products;
+};

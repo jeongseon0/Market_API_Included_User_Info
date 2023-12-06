@@ -10,15 +10,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       status: {
+        allowNull: false,
         type: Sequelize.DataTypes.ENUM('FOR_SALE', 'SOLD_OUT'),
         defaultValue: 'FOR_SALE'
       },
